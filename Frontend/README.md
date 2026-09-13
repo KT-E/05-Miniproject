@@ -1,127 +1,118 @@
-# 도서 관리 시스템 README.MD
-KT AIVLE School AI 트랙 미니 프로젝트 4차 FrontEnd
+# 도서 관리 시스템
+
+> KT AIVLE School AI 트랙 미니프로젝트 5차 (Frontend)
 
 <img src="https://github.com/user-attachments/assets/c4527184-1e44-4688-a68f-12df8db1f4b9">
 
 ## 프로젝트 소개
+
 - 누구나 작가가 되어 자유롭게 글을 집필하고 공개할 수 있는 창작 플랫폼입니다.
-- 책을 사랑하는 사람이라면 누구나 간편하게 이용할 수 있도록 사용자 편의 UI를 제공합니다.
-- 기존 플랫폼과 달리 작가의 감성과 이야기가 그대로 반영될 수 있는 AI 표지 제작을 지원합니다.
+- 회원가입/로그인 후 도서를 등록·수정하고, 다른 작가를 팔로우하며, 댓글과 평점으로 소통할 수 있습니다.
+- 작가의 감성과 이야기가 그대로 반영될 수 있도록 AI 표지 생성 기능을 지원합니다.
+
+미니프로젝트 4차의 json-server 목업 버전을 기반으로, 실제 Spring Boot 백엔드(`../BackEnd`)와 통신하도록 전환하고 인증·팔로우·댓글 기능을 추가한 버전입니다.
 
 <br>
 
 ## 시스템 아키텍처
 
 ```mermaid
-graph TD
+graph LR
  User(("사용자"))
  Client["FrontEnd<br>(React + Vite)"]
+ Server["BackEnd<br>(Spring Boot)"]
  AI["OpenAI API"]
- Server["BackEnd<br>(json-server)"]
 
- User -- "1. 도서 등록/수정 내용 및<br>표지 프롬프트 입력" --> Client
- Client -- "2. 표지 프롬프트 전송" --> AI
- AI -- "3. 생성된 이미지 URL 반환" --> Client
- Client -- "4. 도서 정보 + 이미지 URL<br>최종 저장 요청 (POST/PATCH)" --> Server
- Server -- "5. 저장 완료 및 데이터 응답" --> Client
+ User -- "UI 조작" --> Client
+ Client -- "REST API<br>(JWT 인증)" --> Server
+ Client -- "AI 표지 생성 요청" --> AI
+ AI -- "이미지 데이터(base64) 반환" --> Client
 ```
+
 <br>
 
 ## 주요 기능
-### 원하는 분위기의 AI 표지 생성 기능
-- 스타일/배경·조명/타이포그래피 별 태그를 선택해 간편하게 원하는 분위기의 표지 생성 가능
-- 프롬프트 작성으로 추가 디테일 적용 가능
-- 1회 생성에 최대 3가지 표지 샘플 제공
-- 도서 등록 이후에도 언제든지 AI 표지 수정 가능
- 
-### 카테고리 필터링 기능
-- 도서 목록 화면에서 상세 검색 기능 없이도 장르 별 필터링 편의성 제공
 
-### 도서 랭킹 제공 기능
-- 메인 화면에서 조회수가 높은 순으로 인기 도서 랭킹 제공
-- 메인 화면에서 출판일자 최신 순으로 신작 랭킹 제공
+### 회원 / 인증
+- 회원가입, 로그인, 로그아웃 (JWT 기반)
+- 이메일·닉네임 중복 확인
+
+### 도서
+- 도서 등록·수정·삭제, 상세 조회, 조회수 집계
+- 제목/작가/장르/출판사/가격대 등 상세 검색, 장르별 카테고리 필터링
+- 조회수 기준 인기 랭킹, 출판일 기준 신작 랭킹
+
+### AI 표지 생성
+- 스타일·배경·조명·타이포그래피 태그 선택 및 프롬프트 입력으로 표지 생성
+- 1회 생성에 최대 3가지 샘플 제공, 등록 후에도 언제든 재생성 가능
+
+### 소셜
+- 작가 프로필 페이지, 팔로우 / 언팔로우
+- 도서별 댓글 작성과 평점(1~5) 등록
+- 마이페이지에서 내가 등록한 도서, 즐겨찾기, 팔로우 목록 확인
 
 <br>
 
 ## 기술 스택
+
 ### Environment
 <img src="https://img.shields.io/badge/VISUAL STUDIO CODE-181717?style=for-the-badge&logo=none&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 
 ### Development
-<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/vite-9135FF?style=for-the-badge&logo=vite&logoColor=black"> <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/OpenAI API-none?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/vite-9135FF?style=for-the-badge&logo=vite&logoColor=black"> <img src="https://img.shields.io/badge/mui-007FFF?style=for-the-badge&logo=mui&logoColor=white"> <img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/OpenAI API-412991?style=for-the-badge&logo=openai&logoColor=white">
 
 ### Communication
-<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"> <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/zoom-0B5CFF?style=for-the-badge&logo=zoom&logoColor=white"> <img src="https://img.shields.io/badge/Microsoft Teams-181717?style=for-the-badge&logo=none&logoColor=white">
+<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"> <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/zoom-0B5CFF?style=for-the-badge&logo=zoom&logoColor=white"> <img src="https://img.shields.io/badge/Microsoft Teams-6264A7?style=for-the-badge&logo=microsoftteams&logoColor=white">
 
 <br>
 
 ## 프로젝트 구조
 
 ```text
-Book-management/
-├── public/ # 정적 파일 (파비콘, 아이콘 등)
+Frontend/
+├── public/                  # 정적 파일 (파비콘, 아이콘 등)
 ├── src/
-│ ├── assets/ # 이미지 및 UI 에셋
-│ ├── components/ # 기능 및 페이지별 UI 컴포넌트
-│ │ ├── common/ # 공통 컴포넌트 (Header)
-│ │ ├── detail/ # 도서 상세 정보 영역
-│ │ ├── edit/ # 도서 및 AI 표지 에디터 영역
-│ │ ├── list/ # 도서 목록 렌더링 및 사이드바 영역
-│ │ └── main/ # 메인 화면 및 검색바 영역
-│ ├── pages/ # 라우팅되는 최상위 페이지 (Home, BookList 등)
-│ ├── util/ # 공통 유틸리티 (bookCoverService)
-│ ├── App.jsx # 메인 라우터 및 상태 관리
-│ └── main.jsx # React 진입점
-├── .env # 환경 변수 (API 키 설정)
-├── db.json # 백엔드 Mock 데이터 (json-server)
-├── package.json # 프로젝트 의존성 라이브러리 명세
-└── README.md # 프로젝트 소개 문서
+│   ├── assets/               # 이미지 및 UI 에셋
+│   ├── context/
+│   │   └── AuthContext.jsx   # 로그인 상태 전역 관리
+│   ├── components/
+│   │   ├── auth/              # 로그인, 회원가입
+│   │   ├── common/            # Header, 상세 검색 패널
+│   │   ├── detail/             # 도서 상세 정보
+│   │   ├── edit/               # 도서 등록/수정, AI 표지 에디터
+│   │   ├── list/                # 도서 목록, 마이페이지
+│   │   ├── main/                # 메인 화면, 검색바
+│   │   └── pages/               # Home, 작가 프로필 페이지
+│   ├── util/
+│   │   └── bookCoverService.js  # AI 표지 생성 API 연동
+│   ├── App.jsx               # 라우터
+│   └── main.jsx               # React 진입점
+└── .env                      # 환경 변수 (VITE_API_BASE_URL, VITE_OPENAI_API_KEY)
 ```
 
 <br>
 
 ## 설치 및 실행
 
-### Requirements
-- npm
-- react-router-dom 
-- .env 파일에 VITE_OPENAI_API_KEY= 키 입력
+### 사전 요구사항
+- Node.js / npm
+- 실행 중인 백엔드 서버 (`../BackEnd` 참고)
 
-### Installation
-```sh
-$ git clone https://github.com/BcKmini/Book-management.git
-$ cd Book-management
+### 환경 변수
+
+프로젝트 루트에 `.env` 파일 생성:
+```
+VITE_API_BASE_URL=http://localhost:8080
+VITE_OPENAI_API_KEY=
 ```
 
-### Backend
+### 실행
+
 ```sh
-$ npm install -g json-server
-$ npx json-server db.json --port 5000
+npm install
+npm run dev
 ```
 
-### Frontend
-```sh
-$ npm install
-$ npm install react-router-dom
-$ npm run dev
-```
-
-<br>
-
-## API 엔드포인트
-
-|구분|API 이름 |유형 |REST API |
-|--|---------|------|-----------|
-|조회|도서 조회 |GET |`/books` |
-|등록|도서 등록 |POST |`/books` |
-|수정|도서 수정 |PATCH |`/books/{id}`|
-|삭제|도서 삭제 |DELETE|`/books/{id}`|
-|조회|도서 상세 조회 |GET |`/books/{id}`|
-|조회|도서 조회수 증가|GET |`/books/{id}`|
-|등록|AI 표지 생성 |POST |`/v1/images/generations`|
-|수정|AI 표지 저장 |PATCH |`/books/{id}`|
-|수정|AI 표지 수정 |PATCH |`/books/{id}/cover-editor`|
- 
 <br>
 
 ## 화면 구성
@@ -149,4 +140,3 @@ $ npm run dev
 |OpenAI |박태정 |
 |스타일링, QA |이채은, 김다진|
 |발표, 문서 |김다애 |
-

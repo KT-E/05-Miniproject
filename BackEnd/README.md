@@ -1,7 +1,6 @@
 # 도서 관리 시스템
 
-> KT AIVLE School AI 트랙 미니 프로젝트 5차 12조 BackEnd
-
+> KT AIVLE School AI 트랙 미니프로젝트 5차 (BackEnd)
 
 <br>
 
@@ -23,12 +22,11 @@
 
 ## 프로젝트 소개
 
-<!-- 프로젝트 배경, 목적, 간단한 설명을 작성하세요 -->
 기존 Frontend 미니프로젝트(json-server 기반)를 분석하여, 실제 Spring Boot + MySQL 백엔드로 전환하는 프로젝트입니다.
 
 ### Before — Frontend 단독 구조 (json-server)
 
-```mermaid 
+```mermaid
 graph TD
  User(("사용자"))
  Client["FrontEnd<br>(React + Vite)"]
@@ -102,61 +100,67 @@ graph LR
 
 ## ERD
 
-<!-- ERD 이미지를 아래에 첨부하세요 -->
-<!-- ![ERD](./docs/erd.png) -->
+```mermaid
+erDiagram
+    USERS ||--|| PROFILES : has
+    USERS ||--o{ BOOK : writes
+    USERS ||--o{ FAVORITE : bookmarks
+    BOOK ||--o{ FAVORITE : "bookmarked in"
+    USERS ||--o{ FOLLOW : follows
+    USERS ||--o{ COMMENT : writes
+    BOOK ||--o{ COMMENT : has
 
-```
-USERS
-- id (PK) 유저 고유번호
-- email (UK) 이메일 (로그인 ID) @NotNull @Unique
-- password 암호화된 비밀번호 @NotNull
-- nickname (UK) 닉네임 @NotNull @Unique
-- created_at @PrePersist 자동 설정
- 
-PROFILES
-- id (PK, FK) 유저 고유번호 (1:1) @MapsId
-- bio 자기소개 @NotNull
-- avatar 아바타 이미지 주소 @NotNull
-- created_at @PrePersist 자동 설정
- 
-BOOK
-- id (PK) 도서 고유번호
-- author_id 작가(User) 고유번호
-- title 도서 제목
-- author 작가명
-- content (LONGTEXT) 도서 본문 / 소개 내용
-- cover_image_url AI 생성 표지 이미지 URL (LONGTEXT)
-- genre 장르
-- publisher 출판사
-- price 가격
-- pages 페이지 수
-- isbn ISBN 번호
-- pub_date 출판일
-- view_count 조회수 @PrePersist 기본값 0
-- created_at @PrePersist 자동 설정
-- updated_at @PreUpdate 자동 갱신
- 
-FAVORITE
-- id (PK) 즐겨찾기 고유번호
-- user_id (FK) 유저 고유번호 @NotNull
-- book_id (FK) 도서 고유번호 @NotNull
-- created_at @PrePersist 자동 설정
-* UNIQUE (user_id, book_id)
- 
-FOLLOW
-- id (PK) 팔로우 고유번호
-- follower_id 팔로우 하는 유저 ID @NotNull
-- following_id 팔로우 대상 유저 ID @NotNull
-- created_at
- 
-COMMENT
-- id (PK) 댓글 고유번호
-- book_id 도서 고유번호 @NotNull
-- user_id 유저 고유번호 @NotNull
-- content 댓글 내용 @NotNull
-- rating 별점 (1~5) @NotNull
-- created_at
-- updated_at
+    USERS {
+        bigint id PK
+        string email UK
+        string password
+        string nickname UK
+        datetime created_at
+    }
+    PROFILES {
+        bigint id PK "1:1 with USERS"
+        string bio
+        string avatar
+        datetime created_at
+    }
+    BOOK {
+        bigint id PK
+        bigint author_id FK
+        string title
+        string author
+        text content
+        text cover_image_url
+        string genre
+        string publisher
+        int price
+        int pages
+        string isbn
+        date pub_date
+        int view_count
+        datetime created_at
+        datetime updated_at
+    }
+    FAVORITE {
+        bigint id PK
+        bigint user_id FK
+        bigint book_id FK "unique (user_id, book_id)"
+        datetime created_at
+    }
+    FOLLOW {
+        bigint id PK
+        bigint follower_id
+        bigint following_id
+        datetime created_at
+    }
+    COMMENT {
+        bigint id PK
+        bigint book_id FK
+        bigint user_id FK
+        string content
+        int rating "1-5"
+        datetime created_at
+        datetime updated_at
+    }
 ```
 
 <br>
@@ -166,7 +170,7 @@ COMMENT
 ### Frontend
 
 ```text
-Frontend/ (저장소: https://github.com/aivleschool-miniproject12/Frontend)
+Frontend/
 ├── public/ # 정적 파일 (파비콘, 아이콘 등)
 ├── src/
 │ ├── assets/ # 이미지 및 UI 에셋
@@ -289,19 +293,14 @@ MySQL 서버를 먼저 실행한 후 `book_db` 데이터베이스를 생성하�
 ### Backend 실행
 
 ```bash
-# 1. 저장소 클론
-$ git clone https://github.com/aivleschool-miniproject12/BackEnd.git
- 
-# 2. 디렉토리 이동
-$ cd BackEnd
-
-IntelliJ에서 `BookBackendApplication.java` 실행
+$ cd BackEnd/book-backend
 ```
+IntelliJ에서 `BookBackendApplication.java` 실행 (또는 `./gradlew bootRun`)
 
 ### Frontend 실행
 
 ```bash
-$ git clone https://github.com/aivleschool-miniproject12/Frontend.git
+$ cd Frontend
 $ npm install
 $ npm run dev
 ```

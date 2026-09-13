@@ -1,6 +1,6 @@
 # 도서 관리 시스템 — Full Stack
 
-> KT AIVLE School AI 트랙 미니 프로젝트 5차 | 12조
+> KT AIVLE School AI 트랙 미니프로젝트 5차
 
 미니프로젝트 4차(별도 저장소 `04-Miniproject`)에서 json-server 목업으로 만들었던 도서 관리 시스템 프론트엔드를, 실제 **Spring Boot + MySQL 백엔드**로 전환하고 회원가입/로그인/팔로우/댓글·평점 같은 실사용 기능을 추가한 풀스택 프로젝트입니다.
 
