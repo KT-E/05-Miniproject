@@ -1,27 +1,27 @@
-# 📚 도서 관리 시스템
+# 도서 관리 시스템
 
 > KT AIVLE School AI 트랙 미니 프로젝트 5차 12조 BackEnd
 
 
 <br>
 
-## 📌 목차
+## 목차
 
-- [프로젝트 소개](#-프로젝트-소개)
-- [개발 기간](#-개발-기간)
-- [팀 R&R](#-팀-rr)
-- [기술 스택](#-기술-스택)
-- [ERD](#-erd)
-- [프로젝트 구조](#-프로젝트-구조)
-- [API 엔드포인트](#-api-엔드포인트)
-- [기능 설명](#-기능-설명)
-- [설치 및 실행 방법](#-설치-및-실행-방법)
-- [화면 미리보기](#-화면-미리보기)
-- [트러블슈팅](#-트러블슈팅)
+- [프로젝트 소개](#프로젝트-소개)
+- [개발 기간](#개발-기간)
+- [팀 R&R](#팀-rr)
+- [기술 스택](#기술-스택)
+- [ERD](#erd)
+- [프로젝트 구조](#프로젝트-구조)
+- [API 엔드포인트](#api-엔드포인트)
+- [기능 설명](#기능-설명)
+- [설치 및 실행 방법](#설치-및-실행-방법)
+- [화면 미리보기](#화면-미리보기)
+- [트러블슈팅](#트러블슈팅)
 
 <br>
 
-## 🖥 프로젝트 소개
+## 프로젝트 소개
 
 <!-- 프로젝트 배경, 목적, 간단한 설명을 작성하세요 -->
 기존 Frontend 미니프로젝트(json-server 기반)를 분석하여, 실제 Spring Boot + MySQL 백엔드로 전환하는 프로젝트입니다.
@@ -30,61 +30,61 @@
 
 ```mermaid 
 graph TD
-    User(("👤 사용자"))
-    Client["💻 FrontEnd<br>(React + Vite)"]
-    AI["🤖 OpenAI API"]
-    Server["🗄️ BackEnd<br>(json-server)"]
+ User(("사용자"))
+ Client["FrontEnd<br>(React + Vite)"]
+ AI["OpenAI API"]
+ Server["BackEnd<br>(json-server)"]
  
-    User -- "1. 도서 등록/수정 내용 및<br>표지 프롬프트 입력" --> Client
-    Client -- "2. 표지 프롬프트 전송" --> AI
-    AI -- "3. 생성된 이미지 URL 반환" --> Client
-    Client -- "4. 도서 정보 + 이미지 URL<br>최종 저장 요청 (POST/PATCH)" --> Server
-    Server -- "5. 저장 완료 및 데이터 응답" --> Client
+ User -- "1. 도서 등록/수정 내용 및<br>표지 프롬프트 입력" --> Client
+ Client -- "2. 표지 프롬프트 전송" --> AI
+ AI -- "3. 생성된 이미지 URL 반환" --> Client
+ Client -- "4. 도서 정보 + 이미지 URL<br>최종 저장 요청 (POST/PATCH)" --> Server
+ Server -- "5. 저장 완료 및 데이터 응답" --> Client
 ```
 
 ### After — FullStack 구조 (Spring Boot + MySQL)
 
 ```mermaid
 graph LR
-    User(("🖥 클라이언트"))
-    Client["⚛️ React"]
-    Server["🌿 Spring Boot"]
-    DB[("🛢 DB")]
-    AI["🤖 OpenAI"]
+ User(("클라이언트"))
+ Client["React"]
+ Server["Spring Boot"]
+ DB[("DB")]
+ AI["OpenAI"]
  
-    User -- "HTTP Protocol<br>UI 렌더링" --> Client
-    Client -- "REST API 및 fetch<br>도서 조회 등" --> Server
-    Client -- "Data URL(base64) 저장" --> Server
-    Server -- "JSON 응답" --> Client
-    Server -- "JPA" --> DB
-    DB -- "도서정보·이미지 URL<br>업데이트 후 저장" --> Server
-    Client -- "OpenAI API 호출<br>(API Key 사용)" --> AI
-    AI -- "이미지 데이터(base64) 반환" --> Client
+ User -- "HTTP Protocol<br>UI 렌더링" --> Client
+ Client -- "REST API 및 fetch<br>도서 조회 등" --> Server
+ Client -- "Data URL(base64) 저장" --> Server
+ Server -- "JSON 응답" --> Client
+ Server -- "JPA" --> DB
+ DB -- "도서정보·이미지 URL<br>업데이트 후 저장" --> Server
+ Client -- "OpenAI API 호출<br>(API Key 사용)" --> AI
+ AI -- "이미지 데이터(base64) 반환" --> Client
 ```
 
 <br>
 
-## 📅 개발 기간
+## 개발 기간
 
 2026.06.09 ~ 2026.06.12
 
 <br>
 
-## 👥 팀 R&R
+## 팀 R&R
 
-| 이름 | 역할           | 담당 기능        |
+| 이름 | 역할 | 담당 기능 |
 |------|--------------|--------------|
-| 박태정 | 조장  | PM·기획, AI/Frontend 연동 |
-| 김다진 | PPT          | 백엔드 개발 (1)   |
-| 황민서 | 검토담당자        | 백엔드 개발 (2)   |
-| 배수성 | 타임키퍼         | 백엔드 개발 (2)   |
-| 유지은 | 발표자          | 백엔드 개발 (3)   |
-| 이채은 | 서기           | AI/Frontend 연동 |
-| 김다애 | PPT          | 통합/예외 처리     |
+| 박태정 | 조장 | PM·기획, AI/Frontend 연동 |
+| 김다진 | PPT | 백엔드 개발 (1) |
+| 황민서 | 검토담당자 | 백엔드 개발 (2) |
+| 배수성 | 타임키퍼 | 백엔드 개발 (2) |
+| 유지은 | 발표자 | 백엔드 개발 (3) |
+| 이채은 | 서기 | AI/Frontend 연동 |
+| 김다애 | PPT | 통합/예외 처리 |
 
 <br>
 
-## 🛠 기술 스택
+## 기술 스택
 
 ### Environment
 <img src="https://img.shields.io/badge/intellij idea-000000?style=for-the-badge&logo=intellijidea&logoColor=white" alt=""> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white" alt=""> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="">
@@ -100,87 +100,87 @@ graph LR
 
 <br>
 
-## 🗂 ERD
+## ERD
 
 <!-- ERD 이미지를 아래에 첨부하세요 -->
 <!-- ![ERD](./docs/erd.png) -->
 
 ```
 USERS
-- id (PK)               유저 고유번호
-- email (UK)            이메일 (로그인 ID)      @NotNull @Unique
-- password              암호화된 비밀번호        @NotNull
-- nickname (UK)         닉네임                  @NotNull @Unique
-- created_at                                    @PrePersist 자동 설정
+- id (PK) 유저 고유번호
+- email (UK) 이메일 (로그인 ID) @NotNull @Unique
+- password 암호화된 비밀번호 @NotNull
+- nickname (UK) 닉네임 @NotNull @Unique
+- created_at @PrePersist 자동 설정
  
 PROFILES
-- id (PK, FK)           유저 고유번호 (1:1)      @MapsId
-- bio                   자기소개                 @NotNull
-- avatar                아바타 이미지 주소        @NotNull
-- created_at                                    @PrePersist 자동 설정
+- id (PK, FK) 유저 고유번호 (1:1) @MapsId
+- bio 자기소개 @NotNull
+- avatar 아바타 이미지 주소 @NotNull
+- created_at @PrePersist 자동 설정
  
 BOOK
-- id (PK)               도서 고유번호
-- author_id             작가(User) 고유번호
-- title                 도서 제목
-- author                작가명
-- content (LONGTEXT)    도서 본문 / 소개 내용
-- cover_image_url       AI 생성 표지 이미지 URL  (LONGTEXT)
-- genre                 장르
-- publisher             출판사
-- price                 가격
-- pages                 페이지 수
-- isbn                  ISBN 번호
-- pub_date              출판일
-- view_count            조회수                  @PrePersist 기본값 0
-- created_at                                    @PrePersist 자동 설정
-- updated_at                                    @PreUpdate 자동 갱신
+- id (PK) 도서 고유번호
+- author_id 작가(User) 고유번호
+- title 도서 제목
+- author 작가명
+- content (LONGTEXT) 도서 본문 / 소개 내용
+- cover_image_url AI 생성 표지 이미지 URL (LONGTEXT)
+- genre 장르
+- publisher 출판사
+- price 가격
+- pages 페이지 수
+- isbn ISBN 번호
+- pub_date 출판일
+- view_count 조회수 @PrePersist 기본값 0
+- created_at @PrePersist 자동 설정
+- updated_at @PreUpdate 자동 갱신
  
 FAVORITE
-- id (PK)               즐겨찾기 고유번호
-- user_id (FK)          유저 고유번호            @NotNull
-- book_id (FK)          도서 고유번호            @NotNull
-- created_at                                    @PrePersist 자동 설정
+- id (PK) 즐겨찾기 고유번호
+- user_id (FK) 유저 고유번호 @NotNull
+- book_id (FK) 도서 고유번호 @NotNull
+- created_at @PrePersist 자동 설정
 * UNIQUE (user_id, book_id)
  
 FOLLOW
-- id (PK)               팔로우 고유번호
-- follower_id           팔로우 하는 유저 ID      @NotNull
-- following_id          팔로우 대상 유저 ID      @NotNull
+- id (PK) 팔로우 고유번호
+- follower_id 팔로우 하는 유저 ID @NotNull
+- following_id 팔로우 대상 유저 ID @NotNull
 - created_at
  
 COMMENT
-- id (PK)               댓글 고유번호
-- book_id               도서 고유번호            @NotNull
-- user_id               유저 고유번호            @NotNull
-- content               댓글 내용               @NotNull
-- rating                별점 (1~5)              @NotNull
+- id (PK) 댓글 고유번호
+- book_id 도서 고유번호 @NotNull
+- user_id 유저 고유번호 @NotNull
+- content 댓글 내용 @NotNull
+- rating 별점 (1~5) @NotNull
 - created_at
 - updated_at
 ```
 
 <br>
 
-## 📂 프로젝트 구조
+## 프로젝트 구조
 
 ### Frontend
 
 ```text
 Frontend/ (저장소: https://github.com/aivleschool-miniproject12/Frontend)
-├── public/             # 정적 파일 (파비콘, 아이콘 등)
+├── public/ # 정적 파일 (파비콘, 아이콘 등)
 ├── src/
-│   ├── assets/         # 이미지 및 UI 에셋
-│   ├── components/     # 기능 및 페이지별 UI 컴포넌트
-│   │   ├── common/     # 공통 컴포넌트 (Header)
-│   │   ├── detail/     # 도서 상세 정보 영역
-│   │   ├── edit/       # 도서 및 AI 표지 에디터 영역
-│   │   ├── list/       # 도서 목록 렌더링 및 사이드바 영역
-│   │   └── main/       # 메인 화면 및 검색바 영역
-│   ├── pages/          # 라우팅되는 최상위 페이지 (Home, BookList 등)
-│   ├── util/           # 공통 유틸리티 (bookCoverService)
-│   ├── App.jsx         # 메인 라우터 및 상태 관리
-│   └── main.jsx        # React 진입점
-└── .env                # 환경 변수 (VITE_API_BASE_URL, VITE_OPENAI_API_KEY)
+│ ├── assets/ # 이미지 및 UI 에셋
+│ ├── components/ # 기능 및 페이지별 UI 컴포넌트
+│ │ ├── common/ # 공통 컴포넌트 (Header)
+│ │ ├── detail/ # 도서 상세 정보 영역
+│ │ ├── edit/ # 도서 및 AI 표지 에디터 영역
+│ │ ├── list/ # 도서 목록 렌더링 및 사이드바 영역
+│ │ └── main/ # 메인 화면 및 검색바 영역
+│ ├── pages/ # 라우팅되는 최상위 페이지 (Home, BookList 등)
+│ ├── util/ # 공통 유틸리티 (bookCoverService)
+│ ├── App.jsx # 메인 라우터 및 상태 관리
+│ └── main.jsx # React 진입점
+└── .env # 환경 변수 (VITE_API_BASE_URL, VITE_OPENAI_API_KEY)
 ```
 
 ### Backend
@@ -188,76 +188,76 @@ Frontend/ (저장소: https://github.com/aivleschool-miniproject12/Frontend)
 ```
 book-backend/src/main/java/com/aivle12/book_backend/
 ├── domain/
-│   ├── Book.java                   # 도서 Entity (@PrePersist/@PreUpdate 자동 시간 설정, 조회수)
-│   ├── Comment.java                 # 댓글 Entity (bookId, userId, rating)
-│   ├── Favorite.java                # 즐겨찾기 Entity (UNIQUE: user_id + book_id)
-│   ├── Follow.java                  # 팔로우 Entity (followerId, followingId)
-│   ├── Profile.java                 # 프로필 Entity (User와 1:1, bio/avatar/createdAt)
-│   └── User.java                    # 회원 Entity (email, nickname Unique)
-├── dto/                              # 요청/응답 DTO (Entity 직접 노출 방지, XxxDto → Xxx 네이밍 통일)
-├── repository/                       # JpaRepository 상속, 도메인별 CRUD/조회 메서드
-│   ├── BookRepository.java          # findByAuthorId (작가별 도서 목록 필터링)
-│   ├── CommentRepository.java       # averageRatingByBookId, countByBookId (평점 집계)
-│   ├── FavoriteRepository.java
-│   ├── FollowRepository.java
-│   ├── ProfileRepository.java       # findByUserEmail 등 User 이메일 기반 조회
-│   └── UserRepository.java
+│ ├── Book.java # 도서 Entity (@PrePersist/@PreUpdate 자동 시간 설정, 조회수)
+│ ├── Comment.java # 댓글 Entity (bookId, userId, rating)
+│ ├── Favorite.java # 즐겨찾기 Entity (UNIQUE: user_id + book_id)
+│ ├── Follow.java # 팔로우 Entity (followerId, followingId)
+│ ├── Profile.java # 프로필 Entity (User와 1:1, bio/avatar/createdAt)
+│ └── User.java # 회원 Entity (email, nickname Unique)
+├── dto/ # 요청/응답 DTO (Entity 직접 노출 방지, XxxDto → Xxx 네이밍 통일)
+├── repository/ # JpaRepository 상속, 도메인별 CRUD/조회 메서드
+│ ├── BookRepository.java # findByAuthorId (작가별 도서 목록 필터링)
+│ ├── CommentRepository.java # averageRatingByBookId, countByBookId (평점 집계)
+│ ├── FavoriteRepository.java
+│ ├── FollowRepository.java
+│ ├── ProfileRepository.java # findByUserEmail 등 User 이메일 기반 조회
+│ └── UserRepository.java
 ├── service/
-│   ├── AuthService.java             # 회원가입/로그인/내정보, 비밀번호 암호화·JWT 발급
-│   ├── AuthorService.java           # 회원(User) CRUD - 작가 정보 관리
-│   ├── BookService.java             # 도서 CRUD, 조회수 증가, 표지 변경, 평점/평점수 포함 응답, 작성자 권한 검증 (@Transactional)
-│   ├── AiCoverService.java          # OpenAI 이미지 생성 API 호출, 표지 3장 생성
-│   ├── CommentService.java          # 댓글 CRUD
-│   ├── FavoriteService.java         # 즐겨찾기 등록/삭제 (JWT userId 기반)
-│   ├── FollowService.java           # 팔로우/언팔로우, 팔로잉·팔로워 목록, 팔로우 여부 조회
-│   └── ProfileService.java          # 프로필 등록/조회/수정/삭제
+│ ├── AuthService.java # 회원가입/로그인/내정보, 비밀번호 암호화·JWT 발급
+│ ├── AuthorService.java # 회원(User) CRUD - 작가 정보 관리
+│ ├── BookService.java # 도서 CRUD, 조회수 증가, 표지 변경, 평점/평점수 포함 응답, 작성자 권한 검증 (@Transactional)
+│ ├── AiCoverService.java # OpenAI 이미지 생성 API 호출, 표지 3장 생성
+│ ├── CommentService.java # 댓글 CRUD
+│ ├── FavoriteService.java # 즐겨찾기 등록/삭제 (JWT userId 기반)
+│ ├── FollowService.java # 팔로우/언팔로우, 팔로잉·팔로워 목록, 팔로우 여부 조회
+│ └── ProfileService.java # 프로필 등록/조회/수정/삭제
 ├── controller/
-│   ├── UserController.java          # /users - 회원가입, 로그인, 내정보, ID로 사용자 조회, 이메일/닉네임 중복확인
-│   ├── AuthorController.java        # /users - 회원 목록/등록/수정/삭제
-│   ├── ProfileController.java       # /users/profile - 프로필 등록/조회/수정/삭제
-│   ├── BookController.java          # /books - CRUD(인증), 조회수 증가, authorId 필터링, AI 표지 생성/적용
-│   ├── CommentController.java       # /books/{bookId}/comments, /comments/{id}
-│   ├── FavoriteController.java      # /books/{bookId}/favorites (인증 필요)
-│   └── FollowController.java        # /authors/{id}/follows(+/status), /users/followings|followers
+│ ├── UserController.java # /users - 회원가입, 로그인, 내정보, ID로 사용자 조회, 이메일/닉네임 중복확인
+│ ├── AuthorController.java # /users - 회원 목록/등록/수정/삭제
+│ ├── ProfileController.java # /users/profile - 프로필 등록/조회/수정/삭제
+│ ├── BookController.java # /books - CRUD(인증), 조회수 증가, authorId 필터링, AI 표지 생성/적용
+│ ├── CommentController.java # /books/{bookId}/comments, /comments/{id}
+│ ├── FavoriteController.java # /books/{bookId}/favorites (인증 필요)
+│ └── FollowController.java # /authors/{id}/follows(+/status), /users/followings|followers
 ├── security/
-│   ├── JwtTokenProvider.java        # JWT 토큰 생성/검증/userId 추출
-│   └── JwtAuthenticationFilter.java # 요청마다 JWT 검증 후 SecurityContext에 인증정보 설정
-├── exception/                        # 커스텀 예외 + GlobalExceptionHandler(전역 예외 처리)
-│   └── ...NotFoundException / ...AlreadyExistsException (Book/Comment/Favorite/Follow/Profile/User)
+│ ├── JwtTokenProvider.java # JWT 토큰 생성/검증/userId 추출
+│ └── JwtAuthenticationFilter.java # 요청마다 JWT 검증 후 SecurityContext에 인증정보 설정
+├── exception/ # 커스텀 예외 + GlobalExceptionHandler(전역 예외 처리)
+│ └── ...NotFoundException / ...AlreadyExistsException (Book/Comment/Favorite/Follow/Profile/User)
 ├── config/
-│   ├── SecurityConfig.java          # Spring Security 설정 (JWT 필터, 인가 규칙, BCrypt)
-│   ├── WebConfig.java               # CORS 설정 (프론트 localhost:5173 연동)
-│   └── RestTemplateConfig.java      # AI 표지 생성용 RestTemplate Bean (connect/read timeout 설정)
+│ ├── SecurityConfig.java # Spring Security 설정 (JWT 필터, 인가 규칙, BCrypt)
+│ ├── WebConfig.java # CORS 설정 (프론트 localhost:5173 연동)
+│ └── RestTemplateConfig.java # AI 표지 생성용 RestTemplate Bean (connect/read timeout 설정)
 └── BookBackendApplication.java
 
 src/main/resources/
-└── application.yaml                 # MySQL DB 연결, JPA, JWT, OpenAI API Key 설정
+└── application.yaml # MySQL DB 연결, JPA, JWT, OpenAI API Key 설정
 ```
 
 <br>
 
-## 🔌 API 엔드포인트
+## API 엔드포인트
 
-> 📋 [API 명세서 (Notion)](https://app.notion.com/p/API-Docs-cc1302230b42838fa095018595e8b1c7)
+> [API 명세서 (Notion)](https://app.notion.com/p/API-Docs-cc1302230b42838fa095018595e8b1c7)
 
 <br>
 
-## 💡 기능 설명
+## 기능 설명
 
-| 기능                   | 설명                                                                          |
+| 기능 | 설명 |
 |----------------------|-----------------------------------------------------------------------------|
-| 🔐 회원가입 / 로그인 / 로그아웃 | - JWT 기반 인증을 통해 사용자 회원가입, 로그인, 로그아웃 기능 제공 <br> - 로그인 후 마이페이지와 사용자별 기능 접근 가능 |
-| 👤 개인 프로필 관리         | - 사용자별 프로필 페이지 기능 제공 <br> - 마이페이지에서 등록한 책, 즐겨찾기, 팔로우 확인 가능                  |
-| 🤝 팔로우 / 언팔로우        | - 사용자 간 팔로우 및 언팔로우 기능 제공 <br> - 팔로워·팔로잉 목록을 통해 사용자 간 연결 관계 확인 가능            |
-| ⭐ 댓글 기반 평점           | - 도서별 댓글 작성과 함께 평점 등록 기능 제공 <br> - 사용자 리뷰를 기반으로 도서 평가와 피드백 확인 가능            |
-| 🔎 상세 검색             | - 제목, 작가 외에도 출판사, 가격, 리뷰 평점, 출판연도 별로 필터링해서 검색 가능                            |
-| 🎨 AI 표지 생성          | - 스타일·배경·타이포그래피 태그 선택 및 프롬프트 입력으로 원하는 분위기의 표지 생성 <br> - 1회 생성에 최대 3가지 샘플 제공, 등록 후에도 언제든 수정 가능 |
-| ✅ 카테고리 필터링          | - 도서 목록 화면에서 장르별 필터링 제공 (상세 검색 없이 간편하게 탐색 가능)                               |
-| 🏆 도서 랭킹             | - 메인 화면에서 조회수 기준 인기 도서 랭킹 및 출판일 기준 신작 랭킹 제공                                 |
+| 회원가입 / 로그인 / 로그아웃 | - JWT 기반 인증을 통해 사용자 회원가입, 로그인, 로그아웃 기능 제공 <br> - 로그인 후 마이페이지와 사용자별 기능 접근 가능 |
+| 개인 프로필 관리 | - 사용자별 프로필 페이지 기능 제공 <br> - 마이페이지에서 등록한 책, 즐겨찾기, 팔로우 확인 가능 |
+| 팔로우 / 언팔로우 | - 사용자 간 팔로우 및 언팔로우 기능 제공 <br> - 팔로워·팔로잉 목록을 통해 사용자 간 연결 관계 확인 가능 |
+| 댓글 기반 평점 | - 도서별 댓글 작성과 함께 평점 등록 기능 제공 <br> - 사용자 리뷰를 기반으로 도서 평가와 피드백 확인 가능 |
+| 상세 검색 | - 제목, 작가 외에도 출판사, 가격, 리뷰 평점, 출판연도 별로 필터링해서 검색 가능 |
+| AI 표지 생성 | - 스타일·배경·타이포그래피 태그 선택 및 프롬프트 입력으로 원하는 분위기의 표지 생성 <br> - 1회 생성에 최대 3가지 샘플 제공, 등록 후에도 언제든 수정 가능 |
+| 카테고리 필터링 | - 도서 목록 화면에서 장르별 필터링 제공 (상세 검색 없이 간편하게 탐색 가능) |
+| 도서 랭킹 | - 메인 화면에서 조회수 기준 인기 도서 랭킹 및 출판일 기준 신작 랭킹 제공 |
 
 <br>
 
-## ⚙️ 설치 및 실행 방법
+## 설치 및 실행 방법
 
 ### 사전 요구사항
 
@@ -308,26 +308,26 @@ $ npm run dev
 
 <br>
 
-## 🖼 화면 미리보기
+## 화면 미리보기
 
-| 페이지      | 미리보기 |
+| 페이지 | 미리보기 |
 |----------|------|
-| 회원가입     | <img width="1242" height="1363" alt="Image" src="https://github.com/user-attachments/assets/ddcc1972-fa6e-44da-8d88-717bdcaae22d" />     |
-| 로그인      | <img width="1247" height="1367" alt="Image" src="https://github.com/user-attachments/assets/fd36af37-62b3-4b84-8e02-ceb68c955082" />     |
-| 상세 검색 토글 | <img width="1235" height="635" alt="Image" src="https://github.com/user-attachments/assets/79a6e645-d86c-439a-aa89-d25154955675" />     |
-| 작가 프로필   | <img width="1248" height="950" alt="Image" src="https://github.com/user-attachments/assets/6e6684f3-4147-40f6-8500-3f03d5436407" />     |
-| 댓글·리뷰 등록 | <img width="1242" height="1386" alt="Image" src="https://github.com/user-attachments/assets/5860a864-b555-465e-ab03-9c77b80ba548" />     |
-| 팔로우 신청   | <img width="1249" height="924" alt="Image" src="https://github.com/user-attachments/assets/ca4a1aac-6ceb-481e-9137-936b1aad965f" />     |
+| 회원가입 | <img width="1242" height="1363" alt="Image" src="https://github.com/user-attachments/assets/ddcc1972-fa6e-44da-8d88-717bdcaae22d" /> |
+| 로그인 | <img width="1247" height="1367" alt="Image" src="https://github.com/user-attachments/assets/fd36af37-62b3-4b84-8e02-ceb68c955082" /> |
+| 상세 검색 토글 | <img width="1235" height="635" alt="Image" src="https://github.com/user-attachments/assets/79a6e645-d86c-439a-aa89-d25154955675" /> |
+| 작가 프로필 | <img width="1248" height="950" alt="Image" src="https://github.com/user-attachments/assets/6e6684f3-4147-40f6-8500-3f03d5436407" /> |
+| 댓글·리뷰 등록 | <img width="1242" height="1386" alt="Image" src="https://github.com/user-attachments/assets/5860a864-b555-465e-ab03-9c77b80ba548" /> |
+| 팔로우 신청 | <img width="1249" height="924" alt="Image" src="https://github.com/user-attachments/assets/ca4a1aac-6ceb-481e-9137-936b1aad965f" /> |
 | 메인 화면 (랭킹) | <img src="https://github.com/user-attachments/assets/1a76f89e-b3c5-41f8-ae42-61477d71240d" /> |
 | 도서 목록 (카테고리 필터) | <img width="1895" height="908" src="https://github.com/user-attachments/assets/b334a398-0247-411b-9d68-c69d7ff44bc5" /> |
 | 신규 도서 등록 | <img src="https://github.com/user-attachments/assets/7ed3444e-996e-4ec5-8382-4563cf8dcd52" /> |
-| AI 표지 생성  | <img src="https://github.com/user-attachments/assets/0ee21aeb-7347-4635-9ddb-c01a070ca8ca" /> |
+| AI 표지 생성 | <img src="https://github.com/user-attachments/assets/0ee21aeb-7347-4635-9ddb-c01a070ca8ca" /> |
 | 도서 상세 정보 | <img src="https://github.com/user-attachments/assets/cdb48da5-fde7-403f-b94d-5a024bb54017" /> |
-| AI 표지 수정  | <img src="https://github.com/user-attachments/assets/96d6a1dd-b497-4d69-b95d-184b4b1c12a2" /> |
+| AI 표지 수정 | <img src="https://github.com/user-attachments/assets/96d6a1dd-b497-4d69-b95d-184b4b1c12a2" /> |
 
 <br>
 
-## 🔧 트러블슈팅
+## 트러블슈팅
 
 | 이슈 | 원인 | 해결 방법 |
 |------|------|-----------|

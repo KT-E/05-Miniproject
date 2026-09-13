@@ -1,4 +1,4 @@
-# 📚 도서 관리 시스템 — Full Stack
+# 도서 관리 시스템 — Full Stack
 
 > KT AIVLE School AI 트랙 미니 프로젝트 5차 | 12조
 
@@ -10,17 +10,17 @@
 
 ```mermaid
 graph LR
-    User(("🖥 클라이언트"))
-    Client["⚛️ React"]
-    Server["🌿 Spring Boot"]
-    DB[("🛢 MySQL")]
-    AI["🤖 OpenAI"]
+ User(("클라이언트"))
+ Client["React"]
+ Server["Spring Boot"]
+ DB[("MySQL")]
+ AI["OpenAI"]
 
-    User -- "HTTP<br>UI 렌더링" --> Client
-    Client -- "REST API<br>(JWT 인증)" --> Server
-    Server -- "JPA" --> DB
-    Client -- "AI 표지 생성 요청<br>(API Key 사용)" --> AI
-    AI -- "이미지 데이터(base64) 반환" --> Client
+ User -- "HTTP<br>UI 렌더링" --> Client
+ Client -- "REST API<br>(JWT 인증)" --> Server
+ Server -- "JPA" --> DB
+ Client -- "AI 표지 생성 요청<br>(API Key 사용)" --> AI
+ AI -- "이미지 데이터(base64) 반환" --> Client
 ```
 
 - **Before(4차, json-server 목업) → After(5차, 실 백엔드)** 전환 과정과 상세 ERD·API·트러블슈팅은 [BackEnd/README.md](./BackEnd/README.md)에 정리돼 있습니다.
@@ -67,4 +67,4 @@ npm install
 npm run dev
 ```
 
-환경 변수 등 자세한 설치 방법은 [BackEnd/README.md](./BackEnd/README.md#️-설치-및-실행-방법)를 참고하세요.
+환경 변수 등 자세한 설치 방법은 [BackEnd/README.md](./BackEnd/README.md#설치-및-실행-방법)를 참고하세요.
