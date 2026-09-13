@@ -232,7 +232,7 @@ export default function BookListPage({ onClickNew, onClickBook }) {
             <div className={styles.error}>
               오류: {error}
               <br />
-              json-server가 실행 중인지 확인하세요.
+              백엔드 서버가 실행 중인지 확인하세요.
             </div>
           )}
           {!loading && !error && sorted.length === 0 && (

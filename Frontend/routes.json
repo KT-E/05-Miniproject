@@ -1,4 +1,0 @@
-{
-  "/users/:id/books": "/userBooks?userId=:id",
-  "/users/:id/favorites": "/userFavorites?userId=:id"
-}
